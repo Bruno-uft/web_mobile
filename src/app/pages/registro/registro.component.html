@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastrar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="registro-container">
+    <div class="header-section ion-text-center ion-margin-bottom">
+      <h2>Crie sua conta</h2>
+      <p>Preencha os dados abaixo para começar</p>
+    </div>
+
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+      <ion-list lines="full">
+        <ion-item>
+          <ion-label position="stacked">Usuário</ion-label>
+          <ion-input type="text" formControlName="username" placeholder="Nome de usuário único"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">E-mail</ion-label>
+          <ion-input type="email" formControlName="email" placeholder="seu@email.com"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Nome</ion-label>
+          <ion-input type="text" formControlName="first_name" placeholder="Seu primeiro nome"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Sobrenome</ion-label>
+          <ion-input type="text" formControlName="last_name" placeholder="Seu sobrenome"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Senha</ion-label>
+          <ion-input type="password" formControlName="password" placeholder="Mínimo 6 caracteres"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Confirmar Senha</ion-label>
+          <ion-input type="password" formControlName="confirm_password" placeholder="Repita a senha"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <div *ngIf="errorMessage" class="ion-padding-top ion-text-center">
+        <ion-text color="danger">
+          <p>{{ errorMessage }}</p>
+        </ion-text>
+      </div>
+
+      <div *ngIf="registroForm.hasError('mismatch') && registroForm.get('confirm_password')?.touched" class="ion-padding-top ion-text-center">
+        <ion-text color="danger">
+          <p>As senhas não coincidem.</p>
+        </ion-text>
+      </div>
+
+      <div class="ion-padding-top">
+        <ion-button expand="block" type="submit" [disabled]="!registroForm.valid" color="success">
+          Registrar
+        </ion-button>
+      </div>
+    </form>
+
+    <div class="ion-margin-top ion-text-center">
+      <p>Já tem uma conta? <a [routerLink]="['/login']">Faça login</a></p>
+    </div>
+  </div>
+</ion-content>
